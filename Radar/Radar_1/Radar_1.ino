@@ -43,7 +43,7 @@ int Scan_Horizontal()
     }
     if (t==1)
     {
-      while(digitalRead(25)==0)
+      while(digitalRead(24)==0)
       {
         count = count+Left(3,3);
       }
