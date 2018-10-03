@@ -1,15 +1,8 @@
 void setup()
 {
-  pinMode(2,OUTPUT); 
-  pinMode(3,OUTPUT); 
-  pinMode(4,OUTPUT); 
-  pinMode(5,OUTPUT);
-  pinMode(8,OUTPUT); 
-  pinMode(9,OUTPUT); 
-  pinMode(10,OUTPUT); 
-  pinMode(11,OUTPUT);
-  pinMode(24,INPUT);
-  pinMode(25,INPUT); 
+  pinMode(2,OUTPUT);  pinMode(3,OUTPUT);   pinMode(4,OUTPUT);   pinMode(5,OUTPUT);
+  pinMode(8,OUTPUT);   pinMode(9,OUTPUT);   pinMode(10,OUTPUT);   pinMode(11,OUTPUT);
+  pinMode(24,INPUT);  pinMode(25,INPUT); 
   Serial.begin(9600);
 }
 
@@ -22,7 +15,7 @@ int Scan_Vertical()
   {
     count = count + Up(3,3);
   }
-  Reset_VERTICAL(count);  
+ // Reset_VERTICAL(count);  
   Serial.println(count);  
   return count;
 }
@@ -48,7 +41,7 @@ int Scan_Horizontal()
         count = count+Left(3,3);
       }
       t++;
-      Reset_HORIZONTAL(count);  
+      //Reset_HORIZONTAL(count);  
       Serial.println(count);
       return count;
     }
@@ -166,7 +159,7 @@ int Right(int Delay_ms,int Duration_ms)
     digitalWrite(11,0);
     count++;
   }
-  Reset_HORIZONTAL();
+  Reset_HORIZONTAL(0);
   return count;
 }
 int Left(int Delay_ms, int Duration_ms)
@@ -190,9 +183,19 @@ int Left(int Delay_ms, int Duration_ms)
     digitalWrite(9,0);
     count++;
   }
-  Reset_HORIZONTAL();
+  Reset_HORIZONTAL(0);
   return count;
 }
 
+void Scan(int * A)
+{
+  A[0] = Scan_Vertical();
+  Reset_VERTICAL(0);
+  
+  A[1] = Scan_Horizontal();
+  Reset_HORIZONTAL(0);
 
+  Reset_HORIZONTAL(A[1]);  
+  Reset_VERTICAL(A[0]);  
+}
 
